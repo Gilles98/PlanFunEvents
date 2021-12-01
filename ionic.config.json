@@ -1,0 +1,7 @@
+{
+  "name": "PlanFunEvents",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
