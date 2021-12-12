@@ -1,0 +1,13 @@
+:host ion-thumbnail {
+  --size: 10em;
+}
+.buttonPictureChange{
+  width: 100%;
+   margin-top: -70px;
+  margin-left: auto;
+  margin-right: auto;
+ }
+ion-button.buttonPictureChange{
+  --background: rgba(128,128,128, 0.7)!important;
+  border-radius: 0;
+}

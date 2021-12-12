@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-item color="danger">
+    <ion-grid>
+      <ion-row *ngIf="authService.checkLoggedIn()">
+        <ion-col></ion-col>
+        <ion-col>
+          <ion-avatar class="image-center" (click)="presentPopover($event)">
+            <img src="https://media-exp1.licdn.com/dms/image/C4E03AQHoFg4CPOMm5A/profile-displayphoto-shrink_400_400/0/1619005080746?e=1643846400&v=beta&t=srBKZNLYPn0G-qJmcezz5O9OeF9HRRzmI6D5jf6FMHU">
+          </ion-avatar>
+        </ion-col>
+        <ion-col class="ion-text-end ion-margin-vertical" >
+          <ion-button fill="clear" color="light">
+            <ion-icon name="add" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!authService.checkLoggedIn()">
+        <ion-col size="12" class="ion-text-center">
+          <ion-label>Log in of registreer je</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+
+</ion-header>
+

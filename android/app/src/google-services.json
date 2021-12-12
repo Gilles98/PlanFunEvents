@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "718066279892",
+    "project_id": "save2date",
+    "storage_bucket": "save2date.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718066279892:android:36963b81ff65e4a90fe241",
+        "android_client_info": {
+          "package_name": "be.ProjectGuiGillesMobielApplicaties.PlanFunEvents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718066279892-mmbqdmv3j3drh9knl6brpmj5vg4mfvmf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.ProjectGuiGillesMobielApplicaties.PlanFunEvents",
+            "certificate_hash": "1bd28fb4ec2dc8e802c4062dfda1318f2efefec3"
+          }
+        },
+        {
+          "client_id": "718066279892-ugsmtknqqpesdlc1cu90mst4j4m3d8ol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsuC-FY9yQT5TyzxrMGP6IQX7K2Avtg0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718066279892-ugsmtknqqpesdlc1cu90mst4j4m3d8ol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

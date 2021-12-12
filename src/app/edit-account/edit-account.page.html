@@ -1,0 +1,42 @@
+
+
+<ion-content>
+  <app-menu></app-menu>
+  <ion-grid class="ion-text-center">
+
+    <ion-row>
+      <ion-col class="ion-align-self-center">
+
+        <ion-thumbnail style="margin: auto">
+          <img src="https://media-exp1.licdn.com/dms/image/C4E03AQHoFg4CPOMm5A/profile-displayphoto-shrink_400_400/0/1619005080746?e=1643846400&v=beta&t=srBKZNLYPn0G-qJmcezz5O9OeF9HRRzmI6D5jf6FMHU">
+         <ion-button (click)="photoService.openPhotos()" class="buttonPictureChange">
+           <ion-icon name="add" size="medium"></ion-icon>
+         </ion-button>
+        </ion-thumbnail>
+
+        <ion-item lines="inset" >
+          <h2>E-mail</h2>
+          <ion-label position="floating"><ion-icon name="mail-outline" color="primary"></ion-icon> Vul je mail in</ion-label>
+          <ion-input type="text" required name="registratieMail"></ion-input>
+        </ion-item>
+
+        <ion-item lines="inset" >
+          <h2>Wijzig je wachtwoord</h2>
+          <ion-label position="floating"><ion-icon name="bag-outline" color="warning"></ion-icon> Vul je nieuwe wachtwoord in</ion-label>
+          <ion-input required name="Wachtwoord" type="password"></ion-input>
+        </ion-item>
+
+        <ion-item lines="inset" >
+          <h2>Stel je telefoonnummer in</h2>
+          <ion-label position="floating"><ion-icon name="call-outline" color="success"></ion-icon> Stel je telefoonnummer in</ion-label>
+          <ion-input required name="Wachtwoord" type="text"></ion-input>
+        </ion-item>
+
+        <ion-button color="danger" class="ion-margin-horizontal ion-margin-top">
+          Opslagen
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="authorizationService.logOut()" >uitloggen</ion-button>
+</ion-content>
