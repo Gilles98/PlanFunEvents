@@ -20,7 +20,7 @@ export class PhotoService {
     await this.getPhotoFromGallery();
   }
 
-  async loadProfileImage(): Promise<Photo>{
+  async loadProfileImagePWA(): Promise<Photo>{
     return this.profileImage;
   }
 
@@ -28,10 +28,11 @@ export class PhotoService {
   const result = await Camera.getPhoto({
     quality: 75,
     allowEditing: true,
-    source: CameraSource.Photos,
-    resultType: CameraResultType.Base64,
+    resultType: CameraResultType.Uri,
+    source: CameraSource.Photos
 
   });
+  console.log(result);
   this.profileImage = result;
 }
 

@@ -1,15 +1,51 @@
 import { Injectable } from '@angular/core';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,User } from 'firebase/auth';
-import {Auth, signOut} from '@angular/fire/auth';
+// eslint-disable-next-line max-len
+import {Auth, signOut, updateCurrentUser, updateEmail, updatePassword, updatePhoneNumber, PhoneAuthProvider, PhoneAuthCredential} from '@angular/fire/auth';
 import {Router} from '@angular/router';
+import {AlertController} from '@ionic/angular';
+import {Capacitor} from '@capacitor/core';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
   private currentUser: User | null;
-  constructor(public auth: Auth, public router: Router) {
+  private verificationCode: string;
+  private verificationId: string;
+
+  constructor(public auth: Auth, public router: Router, public alertController: AlertController) {
     this.auth.onAuthStateChanged(user => this.setCurrentUser(user));
+  }
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      header: 'Verifieër je telefoonnummer!',
+      inputs: [
+        {
+          name: 'phone',
+          placeholder: 'vul je telefoonnummer in'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.verificationCode = data.phone;
+            console.log(this.verificationCode);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 
   logOut(): void{
@@ -27,6 +63,24 @@ export class AuthorizationService {
    return !!this.currentUser;
   }
 
+
+
+
+  async updateProfile(email: string, wachtwoord: string, telefoon: string){
+    console.log(email + '\n' + wachtwoord + '\n' + telefoon);
+    if (email !== undefined){
+      await updateEmail(this.currentUser, email);
+    }
+    if (wachtwoord !== undefined){
+      await updatePassword(this.currentUser, wachtwoord);
+    }
+
+    if (telefoon !== undefined){
+      if (!Capacitor.isNativePlatform()) {
+        return;
+      }
+    }
+  }
 logIn(email: string, password: string): void{
     signInWithEmailAndPassword(getAuth(), email, password).then((userCredential) => {
       const user: User = userCredential.user;
