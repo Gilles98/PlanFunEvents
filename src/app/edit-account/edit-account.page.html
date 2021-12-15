@@ -8,8 +8,9 @@
       <ion-col class="ion-align-self-center">
 
         <ion-thumbnail style="margin: auto">
-          <img *ngIf="this.image === undefined" [src]="standardImage">
-          <img *ngIf="this.image !== undefined" [src]=" domSanitizer.bypassSecurityTrustUrl(image.webPath)">
+          <img *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL !== undefined" [src]="this.authorizationService.returnCurrentUser()?.photoURL">
+          <img *ngIf="isNewPhotoSelected && this.image.dataUrl !== undefined" [src]="this.image.dataUrl || standardImage">
+          <img *ngIf="isNewPhotoSelected && this.image.dataUrl === undefined" [src]="standardImage">
          <ion-button (click)="selectPhoto()" class="buttonPictureChange">
            <ion-icon name="add" size="medium"></ion-icon>
          </ion-button>
@@ -26,14 +27,23 @@
           <ion-label position="floating"><ion-icon name="bag-outline" color="warning"></ion-icon> Vul je nieuwe wachtwoord in</ion-label>
           <ion-input required name="Wachtwoord" type="password" [(ngModel)]="wachtwoord"></ion-input>
         </ion-item>
-
+<!--
         <ion-item lines="inset" >
           <h2>Stel je telefoonnummer in</h2>
           <ion-label position="floating"><ion-icon name="call-outline" color="success"></ion-icon> Stel je telefoonnummer in</ion-label>
           <ion-input required name="telefoon" type="text" [(ngModel)]="telefoonNummer"></ion-input>
         </ion-item>
+  !-->
 
-        <ion-button (click)="authorizationService.updateProfile(email, wachtwoord, telefoonNummer)" color="danger" class="ion-margin-horizontal ion-margin-top">
+
+
+        <ion-item lines="inset">
+          <h2>Stel je Display Naam in</h2>
+          <ion-label position="floating"><ion-icon name="eye-outline" color="primary"></ion-icon> Stel je displaynaam in(Verplicht na registratie)</ion-label>
+          <ion-input required name="display" type="text" [(ngModel)]="displayName"></ion-input>
+        </ion-item>
+
+        <ion-button (click)="saveChanges()" color="danger" class="ion-margin-horizontal ion-margin-top">
           Opslagen
         </ion-button>
       </ion-col>

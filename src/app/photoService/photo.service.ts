@@ -28,7 +28,7 @@ export class PhotoService {
   const result = await Camera.getPhoto({
     quality: 75,
     allowEditing: true,
-    resultType: CameraResultType.Uri,
+    resultType: CameraResultType.DataUrl,
     source: CameraSource.Photos
 
   });
