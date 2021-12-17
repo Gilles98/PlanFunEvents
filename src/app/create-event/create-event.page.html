@@ -1,0 +1,51 @@
+
+<ion-content>
+  <app-menu></app-menu>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col class="ion-align-items-self">
+        <h2>Geef een titel aan je event 🥳🥳</h2>
+        <ion-input placeholder="Het meest knallende event ever"></ion-input>
+        <h2>
+          Waar is het event?
+        </h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-input type="text" placeholder="Kleinhoefstraat 4, Geel" [(ngModel)]="adress"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input type="text" placeholder="geef je plaats een naam(optioneel)"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <h2>Wie zijn je gasten</h2>
+        <ion-button class="buttonContacts">Contact toevoegen  <ion-icon name="person-add-outline"></ion-icon></ion-button>
+          <ion-item lines="none">
+            <h2>Kies je dresscode</h2>
+          </ion-item>
+        <ion-item>
+
+
+          <ion-label>Dresscode</ion-label>
+          <ion-select interface="popover">
+            <ion-select-option value="nes">NES</ion-select-option>
+            <ion-select-option value="n64">Nintendo64</ion-select-option>
+            <ion-select-option value="ps">PlayStation</ion-select-option>
+            <ion-select-option value="genesis">Sega Genesis</ion-select-option>
+            <ion-select-option value="saturn">Sega Saturn</ion-select-option>
+            <ion-select-option value="snes">SNES</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

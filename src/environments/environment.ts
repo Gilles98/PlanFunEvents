@@ -15,6 +15,9 @@ export const environment = {
   }
 };
 
+export const BASE_NOMINATIM_URL = 'nominatim.openstreetmap.org';
+export const DEFAULT_VIEW_BOX = 'viewbox=-25.0000%2C70.0000%2C50.0000%2C40.0000';
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

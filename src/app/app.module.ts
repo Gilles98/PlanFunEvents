@@ -10,11 +10,12 @@ import {PopOverComponentComponent} from './pop-over-component/pop-over-component
 import {provideFirebaseApp, initializeApp} from '@angular/fire/app';
 import {environment} from '../environments/environment';
 import {getAuth, provideAuth} from '@angular/fire/auth';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [AppComponent, PopOverComponentComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [BrowserModule,LeafletModule, IonicModule.forRoot(), AppRoutingModule,
     // Firebase main import.
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // Firebase authentication import.

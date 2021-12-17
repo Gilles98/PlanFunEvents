@@ -24,6 +24,12 @@ const routes: Routes = [
     loadChildren: () => import('./edit-account/edit-account.module').then( m => m.EditAccountPageModule),
     canActivate: [AuthGuard],
     data: {authGuardPipe: redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'create-event',
+    loadChildren: () => import('./create-event/create-event.module').then( m => m.CreateEventPageModule),
+    canActivate: [AuthGuard],
+    data: {authGuardPipe: redirectUnauthorizedToLogin}
   }
 ];
 
