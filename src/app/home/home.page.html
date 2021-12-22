@@ -10,8 +10,8 @@
         <ion-item><p>install</p></ion-item>
         <ion-item><p>install</p></ion-item>       <ion-item><p>install</p></ion-item>
         <ion-button (click)="authorizationService.logOut()" ></ion-button>
-
-      </ion-col>
+      </ion-col>-
+      <ion-item *ngFor="let contact of (contacts | async)?.contacts">{{contact.displayName}}</ion-item>
     </ion-row>
   </ion-grid>
 

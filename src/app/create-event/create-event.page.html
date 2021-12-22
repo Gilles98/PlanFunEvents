@@ -5,7 +5,7 @@
     <ion-row>
       <ion-col class="ion-align-items-self">
         <h2>Geef een titel aan je event 🥳🥳</h2>
-        <ion-input placeholder="Het meest knallende event ever"></ion-input>
+        <ion-input placeholder="Het meest knallende event ever" [(ngModel)]="title"></ion-input>
         <h2>
           Waar is het event?
         </h2>
@@ -20,7 +20,7 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-input type="text" placeholder="geef je plaats een naam(optioneel)"></ion-input>
+              <ion-input type="text" placeholder="geef je plaats een naam(optioneel)" [(ngModel)]="ownLocationName"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -33,19 +33,21 @@
 
 
           <ion-label>Dresscode</ion-label>
-          <ion-select interface="popover">
-            <ion-select-option value="nes">NES</ion-select-option>
-            <ion-select-option value="n64">Nintendo64</ion-select-option>
-            <ion-select-option value="ps">PlayStation</ion-select-option>
-            <ion-select-option value="genesis">Sega Genesis</ion-select-option>
-            <ion-select-option value="saturn">Sega Saturn</ion-select-option>
-            <ion-select-option value="snes">SNES</ion-select-option>
+          <ion-select interface="popover" [(ngModel)]="selectedCode">
+            <ion-select-option [value]="dresscode" *ngFor="let dresscode of dresscodes" >{{dresscode}}</ion-select-option>
           </ion-select>
+
+        </ion-item>
+
+        <ion-item>
+          <h2>Geef een boodschap mee</h2>
+          <ion-textarea placeholder="Dit is de graafste party OOIT" [(ngModel)]="message"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-button (click)="createEvent()">Maak je event aan</ion-button>
         </ion-item>
       </ion-col>
-
-
-
     </ion-row>
   </ion-grid>
 </ion-content>

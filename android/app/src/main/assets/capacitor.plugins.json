@@ -1,5 +1,13 @@
 [
 	{
+		"pkg": "@byrds/capacitor-contacts",
+		"classpath": "ch.byrds.capacitorContacts.CapContacts"
+	},
+	{
+		"pkg": "@capacitor-community/contacts",
+		"classpath": "ch.byrds.capacitor.contacts.Contacts"
+	},
+	{
 		"pkg": "@capacitor/app",
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},
