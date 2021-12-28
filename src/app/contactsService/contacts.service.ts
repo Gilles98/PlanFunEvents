@@ -16,13 +16,15 @@ export class ContactsService {
   async getAllContacts(): Promise<{ contacts: Contact[] } | null | undefined>{
 
     let cont;
+    if (isPlatform('android')){
+      const permission = await Contacts.getPermissions();
+      if (!permission.granted){
+        return undefined;
+      }
+      cont = Contacts.getContacts().then((data) => data);
+      return cont;
+    }
 
-        const permission = await Contacts.getPermissions();
-        if (!permission.granted){
-          return undefined;
-        }
-        cont = Contacts.getContacts().then((data) => data);
-        return cont;
 
   }
   private async retrievePermissions(): Promise<void> {

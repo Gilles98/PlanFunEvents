@@ -30,3 +30,26 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+:root {
+  --ion-color-eventview: #FFECD3;
+  --ion-color-eventview-rgb: 255,236,211;
+  --ion-color-eventview-contrast: #000000;
+  --ion-color-eventview-contrast-rgb: 0,0,0;
+  --ion-color-eventview-shade: #e0d0ba;
+  --ion-color-eventview-tint: #ffeed7;
+}
+
+.ion-color-eventview {
+  --ion-color-base: var(--ion-color-eventview);
+  --ion-color-base-rgb: var(--ion-color-eventview-rgb);
+  --ion-color-contrast: var(--ion-color-eventview-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-eventview-contrast-rgb);
+  --ion-color-shade: var(--ion-color-eventview-shade);
+  --ion-color-tint: var(--ion-color-eventview-tint);
+}
+.cardView{
+  width:75%;
+  margin-left: auto;
+  margin-right: auto;
+}

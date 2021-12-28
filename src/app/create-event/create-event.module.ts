@@ -9,6 +9,7 @@ import { CreateEventPageRoutingModule } from './create-event-routing.module';
 import { CreateEventPage } from './create-event.page';
 import {MapComponent} from '../map/map.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {ContactModalComponent} from '../contact-modal/contact-modal.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +19,6 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
     CreateEventPageRoutingModule,
     LeafletModule
   ],
-  declarations: [CreateEventPage, MapComponent]
+  declarations: [CreateEventPage, MapComponent, ContactModalComponent]
 })
 export class CreateEventPageModule {}

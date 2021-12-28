@@ -1,0 +1,32 @@
+<ion-content color="danger">
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <ion-item *ngFor="let contact of (contacts | async)?.contacts"  (click)="checkChanges(contact)">
+          <ion-card style="width: 100%">
+            <ion-card-header >
+
+              <ion-card-title>{{contact.displayName}}</ion-card-title>
+            </ion-card-header>
+
+          </ion-card></ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-fab [vertical]='verticalFabPosition' horizontal='end' slot='fixed'>
+    <!--
+    Note that the path for the routerLink directive is by default relative
+    to the current page, the path of the current page is automatically added
+    in front of the path that is passed to the directive.
+
+    If a full path is required, the first element in the list should start with
+    a forward slash.
+    -->
+    <ion-fab-button (click)="sendBack()">
+      Opslagen
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

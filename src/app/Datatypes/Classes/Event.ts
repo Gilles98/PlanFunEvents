@@ -1,9 +1,11 @@
 import IEvent from '../Interface/IEvent';
 import Location from './Location';
+import FirestoreUser from './FirestoreUser';
 
 export class Event implements IEvent{
   confirmedUsers: string[];
-  createdByUser: string;
+  createdByUser: FirestoreUser;
+  date: string;
   dresscode: string;
   invitedUsersWithRegisterdMailAdress: string[];
   location: Location;

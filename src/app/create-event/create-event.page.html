@@ -25,29 +25,44 @@
           </ion-row>
         </ion-grid>
         <h2>Wie zijn je gasten</h2>
-        <ion-button class="buttonContacts">Contact toevoegen  <ion-icon name="person-add-outline"></ion-icon></ion-button>
-          <ion-item lines="none">
+        <ion-button class="buttonContacts" (click)="openContacts()">Contact toevoegen  <ion-icon name="person-add-outline"></ion-icon></ion-button>
+        <span *ngIf="contacts?.length > 0 && contacts !== undefined" >
+          <ion-item *ngFor="let contact of contacts">
+            <ion-label> {{contact.displayName}}</ion-label>
+          </ion-item>
+        </span>  <ion-item lines="full">
+        <ion-item lines="none">
+          <h2>Kies je moment</h2>
+        </ion-item>
+        <ion-datetime  display-format="MMM DD, YYYY HH:mm" max="2025-10-31"
+                       [(ngModel)]='selectedDate'>
+          Datum
+        </ion-datetime>
+      </ion-item>
+
+        <ion-item lines="none">
             <h2>Kies je dresscode</h2>
           </ion-item>
         <ion-item>
-
-
           <ion-label>Dresscode</ion-label>
           <ion-select interface="popover" [(ngModel)]="selectedCode">
             <ion-select-option [value]="dresscode" *ngFor="let dresscode of dresscodes" >{{dresscode}}</ion-select-option>
           </ion-select>
-
         </ion-item>
 
-        <ion-item>
+        <ion-item lines="none">
           <h2>Geef een boodschap mee</h2>
-          <ion-textarea placeholder="Dit is de graafste party OOIT" [(ngModel)]="message"></ion-textarea>
         </ion-item>
-
         <ion-item>
-          <ion-button (click)="createEvent()">Maak je event aan</ion-button>
+
+          <ion-item lines="full">
+            <ion-textarea placeholder="Dit is de graafste party OOIT" cols="200" [(ngModel)]="message"></ion-textarea>
+          </ion-item>
         </ion-item>
+          <ion-button (click)="createEvent()">Maak je event aan</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+
 </ion-content>

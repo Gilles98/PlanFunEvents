@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import {MenuComponent} from './menu/menu.component';
 import {IonicModule} from '@ionic/angular';
 import {RouterModule} from '@angular/router';
+import {FooterComponent} from './footer/footer.component';
 
 
 
 @NgModule({
-  declarations: [MenuComponent],
-  exports:[MenuComponent],
+    declarations: [MenuComponent, FooterComponent],
+    exports: [MenuComponent, FooterComponent],
     imports: [
         CommonModule,
         IonicModule,

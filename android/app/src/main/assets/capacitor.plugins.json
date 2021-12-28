@@ -1,9 +1,5 @@
 [
 	{
-		"pkg": "@byrds/capacitor-contacts",
-		"classpath": "ch.byrds.capacitorContacts.CapContacts"
-	},
-	{
 		"pkg": "@capacitor-community/contacts",
 		"classpath": "ch.byrds.capacitor.contacts.Contacts"
 	},
@@ -24,11 +20,19 @@
 		"classpath": "com.capacitorjs.plugins.keyboard.KeyboardPlugin"
 	},
 	{
+		"pkg": "@capacitor/share",
+		"classpath": "com.capacitorjs.plugins.share.SharePlugin"
+	},
+	{
 		"pkg": "@capacitor/status-bar",
 		"classpath": "com.capacitorjs.plugins.statusbar.StatusBarPlugin"
 	},
 	{
 		"pkg": "@robingenz/capacitor-firebase-authentication",
 		"classpath": "dev.robingenz.capacitorjs.plugins.firebase.auth.FirebaseAuthenticationPlugin"
+	},
+	{
+		"pkg": "capacitor-email-composer",
+		"classpath": "de.einfachhans.emailcomposer.EmailComposerPlugin"
 	}
 ]
