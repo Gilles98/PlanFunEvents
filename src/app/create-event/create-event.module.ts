@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CreateEventPageRoutingModule } from './create-event-routing.module';
 
 import { CreateEventPage } from './create-event.page';
-import {MapComponent} from '../map/map.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ContactModalComponent} from '../contact-modal/contact-modal.component';
 @NgModule({
@@ -17,8 +16,9 @@ import {ContactModalComponent} from '../contact-modal/contact-modal.component';
     IonicModule,
     SharedModule,
     CreateEventPageRoutingModule,
-    LeafletModule
   ],
-  declarations: [CreateEventPage, MapComponent, ContactModalComponent]
+  exports: [
+  ],
+  declarations: [CreateEventPage, ContactModalComponent]
 })
 export class CreateEventPageModule {}

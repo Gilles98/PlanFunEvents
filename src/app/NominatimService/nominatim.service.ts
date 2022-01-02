@@ -8,20 +8,9 @@ import {BASE_NOMINATIM_URL, DEFAULT_VIEW_BOX} from '../../environments/environme
 @Injectable()
 export class NominatimService {
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
-  addressLookup(req?: any): Observable<NominatimResponse[]> {
-    const url = `https://${BASE_NOMINATIM_URL}/search?format=json&q=${req}&${DEFAULT_VIEW_BOX}&bounded=1`;
-    return this.http
-      .get(url).pipe(
-        map((data: any[]) => data.map((item: any) => new NominatimResponse(
-            item.lat,
-            item.lon,
-            item.display_name
-          ))
-        )
-      );
-  }
+
 
 }

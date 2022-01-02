@@ -6,7 +6,7 @@ import {
   Firestore,
   doc,
   DocumentReference,
-  addDoc, getDocs, query, orderBy, where, getDoc, setDoc
+  addDoc, getDocs, query, orderBy, where, getDoc, setDoc, updateDoc
 } from '@angular/fire/firestore';
 // eslint-disable-next-line max-len
 import {
@@ -22,22 +22,36 @@ import {Photo} from '@capacitor/camera';
 import {FireStorageService} from '../fireStorageService/fire-storage.service';
 import FirestoreUser from '../Datatypes/Classes/FirestoreUser';
 import {update} from '@angular/fire/database';
+import {Event} from '../Datatypes/Classes/Event';
+import {EventService} from '../eventService/event.service';
+import {ErrorService} from '../ErrorService/error.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
-  private cred: any = null;
   private currentUser: User | null;
-  private verificationCode: string;
   private firestoreUser: FirestoreUser;
 
   // eslint-disable-next-line max-len
-  constructor(public auth: Auth, public router: Router, public alertController: AlertController, public fireStorageService: FireStorageService,
-              private firestore: Firestore) {
+  constructor(public auth: Auth, public router: Router, public fireStorageService: FireStorageService,
+              private firestore: Firestore, private errorService: ErrorService ) {
     this.auth.onAuthStateChanged(user => this.setCurrentUser(user));
   }
 
+  ///moet dit hier doen vanwege circular dependency
+  async updateUserEventsWithNewUserData(firestoreUser: FirestoreUser): Promise<void>{
+    const results = await getDocs<Event>(
+      query<Event>(
+        this.getCollectionRef('events'),
+        where('createdByUser.uid', '==', firestoreUser.uid),
+      ));
+    for (const result of results.docs.map(d => ({...d.data(), key: d.id}))){
+      const id = result.key;
+      const docRef = doc(this.getCollectionRef<Event>('events'), id);
+      await updateDoc(docRef,{createdByUser: firestoreUser});
+    }
+  }
   async getUserFromFirestore(): Promise<void> {
     const results = await getDocs<FirestoreUser>(
       query<FirestoreUser>(
@@ -73,36 +87,6 @@ export class AuthorizationService {
     this.currentUser = getAuth().currentUser;
     return this.currentUser;
   }
-  async presentAlertPrompt() {
-    const alert = await this.alertController.create({
-      header: 'Verifieër je telefoonnummer!',
-      inputs: [
-        {
-          name: 'phone',
-          placeholder: 'vul je telefoonnummer in'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          },
-        },
-        {
-          text: 'Ok',
-          handler: (data) => {
-            this.verificationCode = data.phone;
-            console.log(this.verificationCode);
-          },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
 
 
   logOut(): void{
@@ -127,7 +111,7 @@ export class AuthorizationService {
         where('uid', '==', this.currentUser.uid),
       ));
     const id = results.docs.map(d => ({...d.data(), key: d.id}))[0].key;
-    const fireStoreUser: FirestoreUser = results.docs.map(d => ({...d.data(), key: d.id}))[0];
+    let fireStoreUser: FirestoreUser = results.docs.map(d => ({...d.data(), key: d.id}))[0];
     const docRef = doc(this.getCollectionRef<FirestoreUser>('users'), id);
     if (field === 'display'){
       await setDoc<FirestoreUser>(
@@ -152,13 +136,54 @@ export class AuthorizationService {
       );
     }
 
+    await getDoc(docRef).then((async newDoc => {
+        fireStoreUser = newDoc.data();
+        await this.updateUserEventsWithNewUserData(fireStoreUser);
+      })
+    );
+
   }
+
+  async logIn(email: string, password: string): Promise<void>{
+    this.currentUser = null;
+      await signInWithEmailAndPassword(getAuth(), email, password).then(async (userCredential) => {
+        await getAuth().updateCurrentUser(userCredential.user);
+        await this.getUserFromFirestore();
+      }).catch(() => {
+        //max length es lint fout
+        this.errorService.callErrorMessage
+        ('Inloggen', '<p>* Wees er zeker van dat het email-adress en het wachtwoord correct zijn ingevuld!</p>');
+      });
+
+  }
+
+  async createUser(email: string, password: string): Promise<void>
+  {
+    const auth: Auth = getAuth();
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user: User = userCredential.user;
+
+        console.log(user);
+        this.createUserInFirestore('users', user).then(() =>{
+          console.log('done');
+        });
+      })
+      .catch((error) => {
+        const errorCode: string = error.code;
+        const errorMessage: string = error.message;
+
+        console.log('errors\n' + errorCode + '\n'+ errorMessage);
+      });
+  }
+
 
 
   async updateProfile(email: string, wachtwoord: string, displayName: string, foto: Photo){
     console.log(email + '\n' + wachtwoord + '\n' + displayName);
     if (email !== undefined){
       await updateEmail(this.currentUser, email);
+      await this.updateFirestoreProfile('email', email);
     }
     if (wachtwoord !== undefined){
       await updatePassword(this.currentUser, wachtwoord);
@@ -176,7 +201,7 @@ export class AuthorizationService {
       const url: string = await this.fireStorageService.saveProfileImage(foto, this.currentUser);
       console.log(url + ' '+  foto);
       await updateProfile(this.auth.currentUser, {photoURL: url});
-      this.currentUser = await getAuth().currentUser;
+      this.currentUser = getAuth().currentUser;
       await this.updateFirestoreProfile('photo', url);
     }
 
@@ -201,44 +226,10 @@ export class AuthorizationService {
   private getCollectionRef<T>(collectionName: string): CollectionReference<T> {
     return collection(this.firestore, collectionName) as CollectionReference<T>;
   }
-     async logIn(email: string, password: string): Promise<void>{
-      this.currentUser = null;
-      await signInWithEmailAndPassword(getAuth(), email, password).then(async (userCredential) => {
-        await getAuth().updateCurrentUser(userCredential.user);
-      await this.getUserFromFirestore();
-
-    }).catch((error) =>{
-      const errorCode: string = error.code;
-      const errorMessage: string = error.message;
-
-      console.log('errors\n' + errorCode + '\n'+ errorMessage);
-    });
-}
-
-  async createUser(email: string, password: string): Promise<void>
-  {
-    const auth = getAuth();
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user: User = userCredential.user;
-
-        console.log(user);
-        this.createUserInFirestore('users', user).then(() =>{
-          console.log('done');
-        });
-      })
-      .catch((error) => {
-        const errorCode: string = error.code;
-        const errorMessage: string = error.message;
-
-        console.log('errors\n' + errorCode + '\n'+ errorMessage);
-      });
-  }
-
   private async setCurrentUser(user: User): Promise<void> {
     this.currentUser = user;
     if (this.currentUser) {
-      await this.router.navigate(['/'])
+      await this.router.navigate(['/']);
     }
     else {
       this.currentUser = getAuth().currentUser;

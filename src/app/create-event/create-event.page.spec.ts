@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import {Capacitor} from '@capacitor/core';
 import { CreateEventPage } from './create-event.page';
 
 describe('CreateEventPage', () => {

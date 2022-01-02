@@ -1,11 +1,13 @@
 <ion-list class="ion-no-padding"  >
   <ion-item class="text-10" color="dark">
-    <ion-label  color="light" class="menuHover" [routerLink]="['/']">Mijn Uitnodigingen</ion-label>
+    <ion-label  color="light" class="menuHover" (click)="popoverController.dismiss()" [routerLink]="['/']">Mijn Uitnodigingen</ion-label>
   </ion-item>
-  <ion-item class="text-10"  color="dark">
-    <ion-label  color="light" class="menuHover">JOUW events</ion-label>
-  </ion-item>
-  <ion-item class="text-10 "   color="dark" [routerLink]="['/edit-account']">
+
+  <ion-item class="text-10 " (click)="popoverController.dismiss()"  color="dark" [routerLink]="['/edit-account']">
     <ion-label  color="light" class="menuHover">Wijzig je profiel</ion-label>
+  </ion-item>
+
+  <ion-item class="text-10"  color="dark">
+    <ion-label class="menuHover" (click)="authService.logOut(); popoverController.dismiss()">Uitloggen</ion-label>
   </ion-item>
 </ion-list>

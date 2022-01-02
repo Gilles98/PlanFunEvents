@@ -12,10 +12,11 @@ import {environment} from '../environments/environment';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {enableIndexedDbPersistence, getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, PopOverComponentComponent],
   entryComponents: [],
-  imports: [BrowserModule,LeafletModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [BrowserModule,LeafletModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,
     // Firebase main import.
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => {

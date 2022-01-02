@@ -6,16 +6,20 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   imports: [
+    HttpClientModule,
     CommonModule,
     SharedModule,
     FormsModule,
+    LeafletModule,
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
 })
 export class HomePageModule {}

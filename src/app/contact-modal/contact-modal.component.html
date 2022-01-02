@@ -2,10 +2,12 @@
   <ion-grid>
     <ion-row >
       <ion-col>
-        <ion-item *ngFor="let contact of (contacts | async)?.contacts"  (click)="checkChanges(contact)">
+        <ion-item color="danger">
+          <h2 style="color: white">Alle telefoon contacten met een email-adress</h2>
+        </ion-item>
+        <ion-item class="showColor" *ngFor="let contact of (contacts | async)?.contacts"  (click)="checkChanges(contact)">
           <ion-card style="width: 100%">
             <ion-card-header >
-
               <ion-card-title>{{contact.displayName}}</ion-card-title>
             </ion-card-header>
 
@@ -26,7 +28,7 @@
     a forward slash.
     -->
     <ion-fab-button (click)="sendBack()">
-      Opslagen
+      Klaar
     </ion-fab-button>
   </ion-fab>
 </ion-content>

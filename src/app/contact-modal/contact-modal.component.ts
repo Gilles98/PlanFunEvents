@@ -20,12 +20,12 @@ export class ContactModalComponent implements OnInit {
     console.log(this.contacts);
   }
 
-  checkChanges(contact: Contact){
+  checkChanges(contact: Contact): void{
     this.returnContacts.push(contact);
   }
 
-  sendBack(){
-    this.modalController.dismiss(this.returnContacts);
+  async sendBack(): Promise<void>{
+    await this.modalController.dismiss(this.returnContacts);
   }
   ngOnInit() {}
 

@@ -1,4 +1,11 @@
-
+.slides-md {
+  --bullet-background: var(--ion-color-primary, #3880ff);
+  --bullet-background-active: var(--ion-color-danger);
+  --progress-bar-background: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.25);
+  --progress-bar-background-active: var(--ion-color-primary-shade, #3171e0);
+  --scroll-bar-background: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.1);
+  --scroll-bar-background-active: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.5);
+}
 
 .formsDesign{
   border: 2px solid gray;

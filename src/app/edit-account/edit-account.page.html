@@ -38,8 +38,8 @@
 
 
         <ion-item lines="inset">
-          <h2>Stel je Display Naam in</h2>
-          <ion-label position="floating"><ion-icon name="eye-outline" color="primary"></ion-icon> Stel je displaynaam in(Verplicht na registratie)</ion-label>
+          <h2>Stel je gebruikersnaam in</h2>
+          <ion-label position="floating"><ion-icon name="eye-outline" color="primary"></ion-icon> Stel je gebruikersnaam in</ion-label>
           <ion-input required name="display" type="text" [(ngModel)]="displayName"></ion-input>
         </ion-item>
 
@@ -49,6 +49,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button (click)="authorizationService.logOut()">uitloggen</ion-button>
+
 </ion-content>
 <app-footer></app-footer>

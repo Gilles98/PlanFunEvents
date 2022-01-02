@@ -20,7 +20,7 @@ export class PhotoService {
     await this.getPhotoFromGallery();
   }
 
-  async loadProfileImagePWA(): Promise<Photo>{
+  async loadProfileImage(): Promise<Photo>{
     return this.profileImage;
   }
 

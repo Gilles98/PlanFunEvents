@@ -3,7 +3,7 @@ import Location from './Location';
 import FirestoreUser from './FirestoreUser';
 
 export class Event implements IEvent{
-  confirmedUsers: string[];
+  confirmedUsers: string[] = [];
   createdByUser: FirestoreUser;
   date: string;
   dresscode: string;

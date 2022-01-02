@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthorizationService} from '../authorizationService/authorization.service';
+import {PopoverController} from '@ionic/angular';
 
 @Component({
   selector: 'app-pop-over-component',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PopOverComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthorizationService,public popoverController: PopoverController) { }
 
   ngOnInit() {}
 
