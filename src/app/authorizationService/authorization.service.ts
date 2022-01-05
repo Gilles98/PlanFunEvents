@@ -108,7 +108,7 @@ export class AuthorizationService {
     if (field === 'display'){
       await setDoc<FirestoreUser>(
         docRef,{
-          displayName: value, email: fireStoreUser.email, uid: fireStoreUser.uid
+          displayName: value, email: fireStoreUser.email, uid: fireStoreUser.uid, photoURL: fireStoreUser.photoURL
         }
       );
     }
@@ -123,13 +123,14 @@ export class AuthorizationService {
     if (field === 'email'){
       await setDoc<FirestoreUser>(
         docRef,{
-          displayName: fireStoreUser.displayName, email: value, uid: fireStoreUser.uid
+          displayName: fireStoreUser.displayName, email: value, uid: fireStoreUser.uid, photoURL: fireStoreUser.photoURL
         }
       );
     }
 
     await getDoc(docRef).then((async newDoc => {
         fireStoreUser = newDoc.data();
+        console.log(fireStoreUser);
         await this.updateUserEventsWithNewUserData(fireStoreUser);
       })
     ).catch(err => {
@@ -206,11 +207,12 @@ export class AuthorizationService {
     }
 
     if (foto !== undefined){
+      console.log(foto);
       const url: string = await this.fireStorageService.saveProfileImage(foto, this.currentUser);
       console.log(url + ' '+  foto);
       await updateProfile(this.auth.currentUser, {photoURL: url});
       this.currentUser = getAuth().currentUser;
-      await this.updateFirestoreProfile('photo', url);
+      await this.updateFirestoreProfile('photo', this.currentUser.photoURL);
     }
     await this.router.navigate(['/']);
   }

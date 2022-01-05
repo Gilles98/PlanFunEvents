@@ -25,9 +25,9 @@ export class EditAccountPage implements OnInit {
   }
   async saveChanges(){
     console.log(this.image);
+    await this.showMessageToHome();
     await this.authorizationService.updateProfile(this.email, this.password, this.displayName, this.image).then(async () => {
       this.isNewPhotoSelected = false;
-      await this.showMessageToHome();
     });
   }
 
