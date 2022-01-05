@@ -21,7 +21,7 @@ export class EditAccountPage implements OnInit {
   constructor(public authorizationService: AuthorizationService, public photoService: PhotoService,
               public firebaseStorageService: FireStorageService, private alertController: AlertController) {
     // eslint-disable-next-line max-len
-    this.standardImage = 'https://media-exp1.licdn.com/dms/image/C4E03AQHoFg4CPOMm5A/profile-displayphoto-shrink_400_400/0/1619005080746?e=1643846400&v=beta&t=srBKZNLYPn0G-qJmcezz5O9OeF9HRRzmI6D5jf6FMHU';
+    this.standardImage = 'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png';
   }
   async saveChanges(){
     console.log(this.image);

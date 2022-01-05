@@ -4,6 +4,11 @@
 Hierna staan de contacten na het opstarten altijd ingeladen. Men kan nog op inladen drukken als er een contact is gewijzigd of aangemaakt
 
 ## Pwa Hosting
+links: 
+
+https://save2date.web.app/ 
+
+https://save2date.firebaseapp.com/ 
 ![image](https://user-images.githubusercontent.com/60871307/148241966-42aa5dc9-ec03-4ffe-a5b7-f82b27058566.png)
 
 

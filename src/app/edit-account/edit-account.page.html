@@ -8,7 +8,8 @@
       <ion-col class="ion-align-self-center">
 
         <ion-thumbnail style="margin: auto">
-          <img alt="current" *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL !== undefined" [src]="this.authorizationService.returnCurrentUser()?.photoURL">
+          <img alt="current" *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL === null" [src]="standardImage">
+          <img alt="current" *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL !== null" [src]="this.authorizationService.returnCurrentUser()?.photoURL">
           <img alt="new" *ngIf="isNewPhotoSelected && this.image.dataUrl !== undefined" [src]="this.image.dataUrl || standardImage">
           <img alt="standard" *ngIf="isNewPhotoSelected && this.image.dataUrl === undefined" [src]="standardImage">
          <ion-button (click)="selectPhoto()" class="buttonPictureChange">

@@ -2,13 +2,5 @@
 	"appId": "be.ProjectGuiGillesMobielApplicaties.PlanFunEvents",
 	"appName": "Save The Date",
 	"webDir": "www",
-	"bundledWebRuntime": false,
-	"plugins": {
-		"FirebaseAuthentication": {
-			"skipNativeAuth": false,
-			"providers": [
-				"phone"
-			]
-		}
-	}
+	"bundledWebRuntime": false
 }

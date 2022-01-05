@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
   popOverDismiss;
   user: User;
   constructor(private menu: MenuController, public popoverController: PopoverController, public authService: AuthorizationService) {
-    this.user = authService.returnCurrentUser()
+    this.user = authService.returnCurrentUser();
   }
 
   ngOnInit() {}

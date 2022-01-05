@@ -15,7 +15,7 @@ export class SendMessageService {
     //als deze ook android ondersteunde had er hier een if statement gestaan om te controleren
     //deze lijn en de log is gewoon om aan te tonen dat het bestaat
    const check = await EmailComposer.hasAccount();
-   console.log(check);
+   console.log(''+ check + sendTo);
 
    await EmailComposer.open({to: sendTo, subject, body});
   }

@@ -23,8 +23,5 @@ project(':capacitor-share').projectDir = new File('../node_modules/@capacitor/sh
 include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacitor/status-bar/android')
 
-include ':robingenz-capacitor-firebase-authentication'
-project(':robingenz-capacitor-firebase-authentication').projectDir = new File('../node_modules/@robingenz/capacitor-firebase-authentication/android')
-
 include ':capacitor-email-composer'
 project(':capacitor-email-composer').projectDir = new File('../node_modules/capacitor-email-composer/android')

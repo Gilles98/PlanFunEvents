@@ -5,8 +5,9 @@
         <ion-col></ion-col>
         <ion-col>
           <ion-avatar class="image-center" (click)="presentPopover($event)">
-            <img alt="profiel foto" *ngIf="this.authService.returnCurrentUser().photoURL !== undefined" [src]="this.authService.returnCurrentUser().photoURL">
-            <img alt="standard foto" *ngIf="this.authService.returnCurrentUser().photoURL === undefined" [src]="'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png'">
+            <img alt="profiel foto" *ngIf="this.authService.returnCurrentUser()?.photoURL !== null" [src]="this.authService.returnCurrentUser().photoURL">
+            <img alt="standard foto" *ngIf="this.authService.returnCurrentUser()?.photoURL === ''" [src]="'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png'">
+            <img alt="standard foto" *ngIf="this.authService.returnCurrentUser()?.photoURL === null" [src]="'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png'">
           </ion-avatar>
         </ion-col>
         <ion-col class="ion-text-end ion-margin-vertical" >

@@ -3,7 +3,6 @@ import {AuthorizationService} from '../authorizationService/authorization.servic
 import {ContactsService} from '../contactsService/contacts.service';
 import {EventService} from '../eventService/event.service';
 import {Event} from '../Datatypes/Classes/Event';
-import {PopoverController} from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -12,7 +11,7 @@ import {PopoverController} from '@ionic/angular';
 export class HomePage implements OnInit{
   events: Event[] = [];
   constructor(public authorizationService: AuthorizationService, public contactService: ContactsService,
-              public eventService: EventService, private popoverController: PopoverController ) {
+              public eventService: EventService) {
 
     console.log(this.authorizationService.returnCurrentUser().email);
 
@@ -50,7 +49,10 @@ export class HomePage implements OnInit{
       this.events = this.events.filter(e => e !== event);
       event.confirmedUsers = event.confirmedUsers.filter(r => r !== deleteUserMail);
       console.log(event.confirmedUsers);
+
       await this.eventService.updateFirestoreEventToNotAcceptedAndRemoveInvite(event, deleteUserMail);
+
+
 
   }
 

@@ -4,7 +4,7 @@
 <app-menu></app-menu>
 
   <!--preview deel !-->
-  <ion-card *ngIf="events.length === 0" color="eventview" class="cardView">
+  <ion-card *ngIf="events.length <= 1" color="eventview" class="cardView">
     <ion-card-header>
       <ion-item color="eventview" lines="full">
         <ion-card-title>Title</ion-card-title>
@@ -99,9 +99,9 @@
         <ion-card-title>{{event.title}}</ion-card-title>
         <ion-card-subtitle slot="end">door {{event.createdByUser.displayName}}
           <ion-avatar>
-            <img alt="door user" *ngIf=" event.createdByUser.photoURL !== ''"
+            <img alt="door user" *ngIf=" event.createdByUser.photoURL !== null"
                  [src]="event.createdByUser.photoURL">
-            <img alt="voor de veiligheid" *ngIf=" event.createdByUser.photoURL === ''"
+            <img alt="voor de veiligheid" *ngIf=" event.createdByUser.photoURL === null"
                  [src]="'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png'">
           </ion-avatar></ion-card-subtitle>
       </ion-item>
@@ -135,9 +135,12 @@
     </ion-item>
 
     <ion-item *ngIf="event.confirmedUsers.includes(authorizationService.returnCurrentUser().email)" color="eventview">
-      <ion-item color="eventview">
-        <ion-label>U hebt dit evenement bevestigd</ion-label>
-      </ion-item>
+      <ion-item-option slot="start" color="eventview">
+        <ion-label>Evenement bevestigd</ion-label>
+      </ion-item-option>
+      <ion-item-option slot="end" color="eventview">
+        <ion-icon size="large" color="danger" name="close-outline" (click)="deleteInvite(event)"></ion-icon>
+      </ion-item-option>
     </ion-item>
   </ion-card>
   <app-footer></app-footer>

@@ -24,11 +24,15 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-input type="text" placeholder="Kleinhoefstraat 4, Geel" [(ngModel)]="adress"></ion-input>
+                <ion-item lines="none">
+                  <ion-input type="text" placeholder="Kleinhoefstraat 4, Geel" [(ngModel)]="adress"></ion-input>
+
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-input type="text" placeholder="geef je plaats een naam(optioneel)" [(ngModel)]="ownLocationName"></ion-input>
+                </ion-item>
               </ion-col>
-              <ion-col>
-                <ion-input type="text" placeholder="geef je plaats een naam(optioneel)" [(ngModel)]="ownLocationName"></ion-input>
-              </ion-col>
+
             </ion-row>
 
           </ion-grid>
@@ -92,7 +96,7 @@
   <ion-grid class="ion-text-center">
     <ion-row>
       <ion-col class="ion-align-items-self">
-        <h1>Het is alleen mogelijk om een event aan te maken in de app</h1>
+        <h1>Het is alleen mogelijk om een event aan te maken in de mobiele app</h1>
       </ion-col>
     </ion-row>
   </ion-grid>
