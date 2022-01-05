@@ -8,9 +8,9 @@
       <ion-col class="ion-align-self-center">
 
         <ion-thumbnail style="margin: auto">
-          <img *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL !== undefined" [src]="this.authorizationService.returnCurrentUser()?.photoURL">
-          <img *ngIf="isNewPhotoSelected && this.image.dataUrl !== undefined" [src]="this.image.dataUrl || standardImage">
-          <img *ngIf="isNewPhotoSelected && this.image.dataUrl === undefined" [src]="standardImage">
+          <img alt="current" *ngIf="!isNewPhotoSelected && this.authorizationService.returnCurrentUser()?.photoURL !== undefined" [src]="this.authorizationService.returnCurrentUser()?.photoURL">
+          <img alt="new" *ngIf="isNewPhotoSelected && this.image.dataUrl !== undefined" [src]="this.image.dataUrl || standardImage">
+          <img alt="standard" *ngIf="isNewPhotoSelected && this.image.dataUrl === undefined" [src]="standardImage">
          <ion-button (click)="selectPhoto()" class="buttonPictureChange">
            <ion-icon name="add" size="medium"></ion-icon>
          </ion-button>
@@ -25,7 +25,7 @@
         <ion-item lines="inset" >
           <h2>Wijzig je wachtwoord</h2>
           <ion-label position="floating"><ion-icon name="bag-outline" color="warning"></ion-icon> Vul je nieuwe wachtwoord in</ion-label>
-          <ion-input required name="Wachtwoord" type="password" [(ngModel)]="wachtwoord"></ion-input>
+          <ion-input required name="Wachtwoord" type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
 <!--
         <ion-item lines="inset" >

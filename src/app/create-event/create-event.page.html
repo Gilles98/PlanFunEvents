@@ -1,5 +1,5 @@
 
-<ion-content >
+<ion-content *ngIf="isNative()" >
   <app-menu></app-menu>
   <ion-grid class="ion-text-center createDesign">
     <ion-row>
@@ -86,7 +86,7 @@
 
 </ion-content>
 
-<!--
+
 <ion-content *ngIf="!isNative()">
   <app-menu></app-menu>
   <ion-grid class="ion-text-center">
@@ -99,4 +99,4 @@
 
 
 </ion-content>
-!-->
+

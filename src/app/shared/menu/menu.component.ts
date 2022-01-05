@@ -21,12 +21,8 @@ export class MenuComponent implements OnInit {
   async dismissPopover(){
     await this.popoverController.dismiss();
   }
-
-  toggleMenu(){
-    this.menu.toggle();
-  }
   async presentPopover(ev: Event) {
-    const popover = await this.popoverController.create({
+    const popover: HTMLIonPopoverElement = await this.popoverController.create({
       component: PopOverComponentComponent,
       event: ev,
     });

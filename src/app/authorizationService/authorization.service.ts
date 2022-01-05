@@ -5,25 +5,21 @@ import {
   CollectionReference,
   Firestore,
   doc,
-  DocumentReference,
-  addDoc, getDocs, query, orderBy, where, getDoc, setDoc, updateDoc
+  addDoc, getDocs, query, where, getDoc, setDoc, updateDoc
 } from '@angular/fire/firestore';
 // eslint-disable-next-line max-len
 import {
-  Auth,
+  Auth, sendPasswordResetEmail,
   signOut,
   updateEmail,
   updatePassword,
   updateProfile
 } from '@angular/fire/auth';
 import {Router} from '@angular/router';
-import {AlertController} from '@ionic/angular';
 import {Photo} from '@capacitor/camera';
 import {FireStorageService} from '../fireStorageService/fire-storage.service';
 import FirestoreUser from '../Datatypes/Classes/FirestoreUser';
-import {update} from '@angular/fire/database';
 import {Event} from '../Datatypes/Classes/Event';
-import {EventService} from '../eventService/event.service';
 import {ErrorService} from '../ErrorService/error.service';
 @Injectable({
   providedIn: 'root'
@@ -31,7 +27,6 @@ import {ErrorService} from '../ErrorService/error.service';
 export class AuthorizationService {
 
   private currentUser: User | null;
-  private firestoreUser: FirestoreUser;
 
   // eslint-disable-next-line max-len
   constructor(public auth: Auth, public router: Router, public fireStorageService: FireStorageService,
@@ -52,6 +47,7 @@ export class AuthorizationService {
       await updateDoc(docRef,{createdByUser: firestoreUser});
     }
   }
+
   async getUserFromFirestore(): Promise<void> {
     const results = await getDocs<FirestoreUser>(
       query<FirestoreUser>(
@@ -64,6 +60,7 @@ export class AuthorizationService {
     console.log(user);
     //mocht de user toch niet geregistreerd staan in de firestore maar wel al zijn aangemaakt in
     //de authorization
+    //heel uitzonderlijk als er iets fout gaat
     if (results.docs.map(d => ({...d.data(), key: d.id}))[0] === undefined){
       await this.createUserInFirestore('users', getAuth().currentUser);
     }
@@ -80,15 +77,10 @@ export class AuthorizationService {
       newUser
     );
   }
-  searchUsers(email: string){
-
-  }
    returnCurrentUser(){
     this.currentUser = getAuth().currentUser;
     return this.currentUser;
   }
-
-
   logOut(): void{
 
     const auth = getAuth();
@@ -140,7 +132,9 @@ export class AuthorizationService {
         fireStoreUser = newDoc.data();
         await this.updateUserEventsWithNewUserData(fireStoreUser);
       })
-    );
+    ).catch(err => {
+      this.errorService.callErrorMessage('Update mislukt', err.message);
+    });
 
   }
 
@@ -177,6 +171,20 @@ export class AuthorizationService {
       });
   }
 
+  async resetPassword(email: string){
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+         console.log('kijk in mail');
+         //uitzonderlijk error service oproepen voor een bevestiging ipv een error
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+
+        this.errorService.callErrorMessage('error bij wijzigen', errorMessage);
+      });
+  }
 
 
   async updateProfile(email: string, wachtwoord: string, displayName: string, foto: Photo){
@@ -204,22 +212,6 @@ export class AuthorizationService {
       this.currentUser = getAuth().currentUser;
       await this.updateFirestoreProfile('photo', url);
     }
-
-   /* if (telefoon !== undefined){
-      // of this course.
-      if (!Capacitor.isNativePlatform()) {
-        return;
-      }
-
-      // We can't log in through the plug-in here, we must either choose
-      // authentication on the web layer, or on the native layer.
-      // A verification code can only be used once.
-      const {verificationId} = await FirebaseAuthentication.signInWithPhoneNumber({phoneNumber: telefoon});
-      this.verificationId = verificationId;
-      await this.presentAlertPrompt();
-      const credential = PhoneAuthProvider.credential(this.verificationId, this.verificationCode);
-      await updatePhoneNumber(this.currentUser, credential);
-    }*/
     await this.router.navigate(['/']);
   }
 
@@ -232,8 +224,6 @@ export class AuthorizationService {
       await this.router.navigate(['/']);
     }
     else {
-      this.currentUser = getAuth().currentUser;
-      console.log(this.currentUser);
       await this.router.navigate(['/login-registration']);
     }
   }

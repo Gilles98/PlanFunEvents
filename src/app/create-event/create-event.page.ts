@@ -16,14 +16,13 @@ import {ErrorService} from '../ErrorService/error.service';
   templateUrl: './create-event.page.html',
   styleUrls: ['./create-event.page.scss'],
 })
-export class CreateEventPage implements OnInit {
+export class CreateEventPage implements OnInit{
 
   //door es lint moest ik het string type weghalen bij sommige properties
   //ik heb dit zo gedaan hier omdat ik een hele lange if statement wil voorkomen
   //als de velden tijdens het opslagen worden gechecked
   //anders moest ik zowel op een lege string als undefined checken
   adress = '';
-  city = '';
   title = '';
   contacts: Contact[];
   ownLocationName = '';
@@ -43,7 +42,8 @@ export class CreateEventPage implements OnInit {
   }
   async checkChanges(): Promise<boolean> {
     if (this.adress ===  '' || this.adress === '' || this.title === '' || this.message === ''
-      || this.contacts === undefined || this.contacts.length <= 0 || this.selectedDate === '') {
+      || this.contacts === undefined || this.contacts.length <= 0 || this.selectedDate === '')
+    {
       await this.errorService.callErrorMessage('Events', '<p>* Wees er zeker van dat alle velden met een sterretje ' +
         'correct zijn ingevuld');
       return false;
@@ -59,22 +59,40 @@ export class CreateEventPage implements OnInit {
       console.log(data);
       this.contacts = data.data;
     }));
-       await modal.present();
+       return await modal.present();
   }
 
   async createEvent(): Promise<void>{
     if (await this.checkChanges()){
-      const location: Location = {city: this.city, adress: this.adress, ownName: this.ownLocationName};
-      const event: Event = new Event({title: this.title, message: this.message, invitedUsersWithRegisterdMailAdress:[],
-        createdByUser: await this.eventService.getFireStoreUser(this.authService.returnCurrentUser().uid)
-      , location, dresscode: this.selectedCode, date: this.selectedDate, confirmedUsers: []});
+      const location: Location = {adress: this.adress, ownName: this.ownLocationName};
+      const event: Event = new Event(
+        {title: this.title,
+          message: this.message,
+          invitedUsersWithRegisterdMailAdress:[],
+          createdByUser: await this.eventService.getFireStoreUser(this.authService.returnCurrentUser().uid),
+          location,
+          dresscode: this.selectedCode, date: this.selectedDate, confirmedUsers: []
+        });
+
       for (const user of this.contacts) {
           event.invitedUsersWithRegisterdMailAdress.push(user.emails[0]?.address);
       }
       await this.eventService.createEvent(event);
     }
   }
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  ionViewDidLeave(): void {
+    this.adress = '';
+    this.title = '';
+    this.contacts = [];
+    this.ownLocationName = '';
+    this.message = '';
+    this.minDate = new Date(Date.now()).toISOString();
+    this.dresscodes = Object.values(SelectDressCode);
+    this.selectedCode  = this.dresscodes[0];
+    this.selectedDate = '';
   }
 
 }

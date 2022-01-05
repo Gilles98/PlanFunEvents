@@ -12,16 +12,17 @@ import {updateProfile} from '@angular/fire/auth';
 export class FireStorageService {
 
   user: User;
-  imgUrl = 'No upload so far';
   private readonly storage: FirebaseStorage;
   constructor(private app: FirebaseApp) {
     this.storage = getStorage(app);
   }
 
   async saveProfileImage(foto: Photo, user: User): Promise<string>{
+    //Krijg hier het type StorageReference niet op toegevoegd
     const imgRef =  ref(this.storage, user.uid + '.png');
+
     await uploadString(imgRef, foto.dataUrl, StringFormat.DATA_URL);
-    const url = await getDownloadURL(imgRef);
+    const url: string = await getDownloadURL(imgRef);
     return url;
   }
 }

@@ -3,13 +3,56 @@
 <ion-content [fullscreen]="true">
 <app-menu></app-menu>
 
+  <!--preview deel !-->
   <ion-card *ngIf="events.length === 0" color="eventview" class="cardView">
     <ion-card-header>
       <ion-item color="eventview" lines="full">
         <ion-card-title>Title</ion-card-title>
         <ion-card-subtitle slot="end">door
           <ion-avatar>
-          <img src="https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png">
+            <img src="https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png">
+          </ion-avatar></ion-card-subtitle>
+      </ion-item>
+    </ion-card-header>
+
+
+    <ion-item  color="eventview">
+      <ion-icon name="map" color="dark"></ion-icon>
+      <ion-label>locatie naam</ion-label>
+    </ion-item>
+
+    <ion-item  color="eventview">
+      <ion-icon name="calendar" color="dark"></ion-icon>
+      <ion-label>Datum</ion-label>
+    </ion-item>
+
+    <ion-item  color="eventview">
+      <ion-icon name="shirt" color="dark"></ion-icon>
+      <ion-label>dresscode</ion-label>
+    </ion-item>
+
+    <ion-card-content style="background: wheat;">
+      Deze plaats dient om het bericht van het evenement te tonen.
+      Heel dit deel is een template en verdwijnt als je uitnodigingen hebt voor een event
+    </ion-card-content>
+    <ion-item color="eventview">
+      <ion-item-option slot="start" color="eventview">
+        <ion-icon size="large" color="success" name="checkmark-outline"></ion-icon>
+      </ion-item-option>
+
+      <ion-item-option slot="end" color="eventview">
+        <ion-icon size="large" color="danger" name="close-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="events.length === 0" color="eventview" class="cardView">
+    <ion-card-header>
+      <ion-item color="eventview" lines="full">
+        <ion-card-title>Title</ion-card-title>
+        <ion-card-subtitle slot="end">door
+          <ion-avatar>
+          <img alt="standard" src="https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png">
         </ion-avatar></ion-card-subtitle>
       </ion-item>
     </ion-card-header>
@@ -46,16 +89,19 @@
   </ion-card>
 
 
+  <!-- echte deel !-->
+
+
 
   <ion-card *ngFor="let event of events" color="eventview" class="cardView">
     <ion-card-header>
       <ion-item color="eventview" lines="full">
         <ion-card-title>{{event.title}}</ion-card-title>
-        <ion-card-subtitle slot="end">door
+        <ion-card-subtitle slot="end">door {{event.createdByUser.displayName}}
           <ion-avatar>
-            <img *ngIf=" event.createdByUser.photoURL !== ''"
+            <img alt="door user" *ngIf=" event.createdByUser.photoURL !== ''"
                  [src]="event.createdByUser.photoURL">
-            <img *ngIf=" event.createdByUser.photoURL === ''"
+            <img alt="voor de veiligheid" *ngIf=" event.createdByUser.photoURL === ''"
                  [src]="'https://www.clker.com/cliparts/i/P/o/p/y/t/gray-silhouette-of-a-man-hi.png'">
           </ion-avatar></ion-card-subtitle>
       </ion-item>
@@ -63,7 +109,7 @@
     <ion-item  color="eventview">
       <ion-icon name="map" color="dark"></ion-icon>
       <ion-label *ngIf="event.location.ownName !== ''">{{event.location.ownName}}</ion-label>
-      <ion-label *ngIf="event.location.ownName === ''">{{event.location.adress}}, {{event.location.city}}</ion-label>
+      <ion-label *ngIf="event.location.ownName === ''">{{event.location.adress}}</ion-label>
     </ion-item>
     <ion-item  color="eventview">
       <ion-icon name="calendar" color="dark"></ion-icon>

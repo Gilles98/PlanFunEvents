@@ -6,7 +6,6 @@ import {Capacitor} from '@capacitor/core';
   providedIn: 'root'
 })
 export class ContactsService {
-  permission: PermissionStatus = {granted: true};
   constructor() {
   }
 
@@ -15,27 +14,18 @@ export class ContactsService {
 
     let cont;
     if (Capacitor.isNativePlatform()){
-      const permission = await Contacts.getPermissions();
+      const permission: PermissionStatus = await Contacts.getPermissions();
       if (!permission.granted){
         return undefined;
       }
+      else {
+        cont = Contacts.getContacts().then((data) => {
+          data.contacts = data.contacts.filter(r => r.emails.length > 0);
+          return data;
+        });
+      }
     }
-
-    // eslint-disable-next-line prefer-const
-    cont = Contacts.getContacts().then((data) => {
-      data.contacts = data.contacts.filter(r => r.emails.length > 0);
-      return data;
-    });
     return cont;
 
-  }
-  private async retrievePermissions(): Promise<void> {
-    try {
-      Contacts.getPermissions().then((permiss) =>{
-        this.permission = permiss;
-      });
-    } catch (error) {
-      console.error(`This device type doesn't support the usage of permissions: ${Capacitor.getPlatform()} platform.`);
-    }
   }
 }

@@ -11,7 +11,7 @@ export class ErrorService {
   async callErrorMessage(title: string, error: string): Promise<void>
   {
 
-    const alert = await this.alertController.create({
+    const alert: HTMLIonAlertElement = await this.alertController.create({
       header: title,
       subHeader: 'er is een fout gebeurt!',
       message:error,

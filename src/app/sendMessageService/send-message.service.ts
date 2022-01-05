@@ -13,9 +13,10 @@ export class SendMessageService {
 
     //op dit moment ondersteund de hasAccount functie enkel nog maar IOS
     //als deze ook android ondersteunde had er hier een if statement gestaan om te controleren
-    //deze lijn is gewoon om aan te tonen dat het bestaat
+    //deze lijn en de log is gewoon om aan te tonen dat het bestaat
    const check = await EmailComposer.hasAccount();
    console.log(check);
+
    await EmailComposer.open({to: sendTo, subject, body});
   }
 

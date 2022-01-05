@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Contact} from '@capacitor-community/contacts';
 import {AuthorizationService} from '../authorizationService/authorization.service';
 import {ContactsService} from '../contactsService/contacts.service';
@@ -12,13 +12,14 @@ import {ModalController} from '@ionic/angular';
 export class ContactModalComponent implements OnInit {
 
   contacts: Promise<{ contacts: Contact[] }>;
+
   returnContacts: Contact[] = [];
   verticalFabPosition = 'bottom';
-  constructor(public authorizationService: AuthorizationService, public contactService: ContactsService,
-              private modalController: ModalController) {
-    this.contacts = contactService.getAllContacts();
-    console.log(this.contacts);
+  completedContactsLoading = false;
+  constructor(public authorizationService: AuthorizationService,
+              private modalController: ModalController, private contactService:  ContactsService) {
   }
+
 
   checkChanges(contact: Contact): void{
     this.returnContacts.push(contact);
@@ -27,6 +28,14 @@ export class ContactModalComponent implements OnInit {
   async sendBack(): Promise<void>{
     await this.modalController.dismiss(this.returnContacts);
   }
-  ngOnInit() {}
+
+  //voor mocht de gebruiker toch een wijziging maken
+  async loadContacts(): Promise<void>{
+    this.contacts = this.contactService.getAllContacts();
+    console.log(this.contacts);
+  }
+  ngOnInit() {
+    this.loadContacts().then(() => this.completedContactsLoading = true);
+  }
 
 }

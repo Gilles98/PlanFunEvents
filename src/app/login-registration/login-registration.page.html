@@ -7,8 +7,8 @@
     <ion-row >
       <ion-col class="ion-align-self-center">
 
-        <h1 *ngIf="isNative">Swipe om te kiezen tussen inloggen of registreren</h1>
-        <h1 *ngIf="!isNative">Sleep om te kiezen tussen inloggen of registreren</h1>
+        <h1 *ngIf="isNative">Swipe om te kiezen tussen inloggen, registreren of wachtwoord aanpassen</h1>
+        <h1 *ngIf="!isNative">Sleep om te kiezen tussen inloggen, registreren of wachtwoord aanpassen</h1>
         <hr>
     <ion-slides  [options]="{ slidesPerView: 'auto', zoom: true, grabCursor: true }" pager="true">
       <ion-slide >
@@ -19,12 +19,12 @@
             <h2>Log in</h2>
 
             <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Vul je mail in</ion-label>
-            <ion-input [(ngModel)]="inloggenMail" name="inloggenMail" type="text" required></ion-input>
+            <ion-input [(ngModel)]="loginMail" name="inloggenMail" type="text" required></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating"> <ion-icon name="bag-outline"></ion-icon> Vul je wachtwoord in</ion-label>
-            <ion-input [(ngModel)]="inloggenWachtwoord" name="inloggenWachtwoord" type="password" required></ion-input>
+            <ion-input [(ngModel)]="loginPassword" name="inloggenWachtwoord" type="password" required></ion-input>
           </ion-item>
 
           <ion-row>
@@ -42,17 +42,34 @@
           <ion-item lines="full" >
             <h2>Registreer hier</h2>
             <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Vul je mail in</ion-label>
-            <ion-input type="text" required [(ngModel)]="registratieMail" name="registratieMail" (ngModelChange)="checkChanges(registratieMail)"></ion-input>
+            <ion-input type="text" required [(ngModel)]="registerMail" name="registratieMail" (ngModelChange)="checkChanges(registerMail)"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating"><ion-icon name="bag-outline"></ion-icon> Vul je wachtwoord in</ion-label>
-            <ion-input type="password" required name="registratieWachtwoord"  [(ngModel)]="registratieWachtwoord"></ion-input>
+            <ion-input type="password" required name="registratieWachtwoord"  [(ngModel)]="registerPassword"></ion-input>
           </ion-item>
 
           <ion-row>
             <ion-col>
               <ion-button style="margin-bottom: 4em" type="submit" color="danger" expand="block" (click)="handleRegistration()">Registreer</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-slide>
+
+      <ion-slide >
+
+
+        <form class="formsDesign" >
+          <ion-item lines="full" >
+            <h2>Wijzig je wachtwoord</h2>
+            <ion-label position="floating"><ion-icon name="mail-outline"></ion-icon> Vul je mail in</ion-label>
+            <ion-input type="text" required [(ngModel)]="changePasswordMail" name="wachtwoordMail" ></ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <ion-button style="margin-bottom: 4em" type="submit" color="danger" expand="block" (click)="handleReset()">Wijzig je wachtwoord</ion-button>
             </ion-col>
           </ion-row>
         </form>
