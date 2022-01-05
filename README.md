@@ -1,5 +1,7 @@
 # Welkom bij Save2Date
 
+!! bij het inladen van de contacten druk na het toestaan van de rechten nog 1x op inladen
+!! dit is de enige bug die ik niet kan verklaren
 
 ## pwa hosting
 ![image](https://user-images.githubusercontent.com/60871307/148241966-42aa5dc9-ec03-4ffe-a5b7-f82b27058566.png)
